@@ -1,0 +1,6 @@
+#!/usr/bin/env node
+
+var Ciana = require('./lib/ciana');
+
+var ciana = new Ciana();
+ciana.start();
