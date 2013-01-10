@@ -1,0 +1,16 @@
+{
+  "port": 3000,
+  "providers": {
+    "time": {
+      "type": "collector",
+      "plugin": "time",
+      "frequency": 1
+    },
+    "tickets": {
+      "type": "collector",
+      "plugin": "helpdesk",
+      "function": "tickets",
+      "frequency": 5
+    }
+  }
+}

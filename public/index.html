@@ -5,7 +5,7 @@
 <title>Ciana Protocol Tester</title>
 <script src="/socket.io/socket.io.js"></script>
 <script>
-var socket = io.connect('http://192.168.1.117');
+var socket = io.connect();
 socket.on('update', function (data) {
   console.log('update', data);
 });
