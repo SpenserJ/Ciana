@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<title>Ciana Protocol Tester</title>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+var socket = io.connect('http://192.168.1.117');
+socket.on('update', function (data) {
+  console.log('update', data);
+});
+socket.on('initialize', function (data) {
+  console.log('initialize', data);
+});
+$(document).ready(function() {
+  $('#text').keypress(function(e) {
+    if (e.keyCode === 13) {
+      socket.emit('test', { message: $('#text').val() });
+      $('#text').val('');
+    }
+  });
+});
+</script>
+</head>
+<body>
+Please open the console, and pass messages with socket.emit('command_name', command_data_object);
+</body>
+</html>
