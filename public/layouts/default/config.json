@@ -1,0 +1,9 @@
+{
+  "panels": {
+    "time": {
+      "provider": "time",
+      "type": "text",
+      "size": "small"
+    }
+  }
+}
