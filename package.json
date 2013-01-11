@@ -19,6 +19,7 @@
     "socket.io": "0.9.x",
     "jade": "0.28.x",
     "ejs": "0.8.x",
-    "nconf": "0.6.x"
+    "nconf": "0.6.x",
+    "less-middleware": "0.1.x"
   }
 }
