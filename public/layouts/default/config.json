@@ -1,9 +1,10 @@
 {
   "panels": {
     "time": {
+      "title": "Time",
       "provider": "time",
       "type": "text",
-      "size": "small"
+      "size": "smbox"
     }
   }
 }
