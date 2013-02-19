@@ -26,8 +26,11 @@ ko.applyBindings(Ciana);
 
 var socket = io.connect();
 
+socket.on('reload', function() {
+  document.location.reload();
+});
+
 socket.on('templates', function (data) {
-  console.log('Templates:\n', data);
   $.each(data, function(name, html) {
     if (($template = $('#template-' + name)).length === 0) {
       $('<script type="text/html" id="template-' + name + '">' + html + '</script>').appendTo('head');

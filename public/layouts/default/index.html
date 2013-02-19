@@ -6,8 +6,11 @@
     <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
     <script src='//cdnjs.cloudflare.com/ajax/libs/knockout/2.2.1/knockout-min.js'></script>
     <script src='/socket.io/socket.io.js'></script>
-    <script src='/scripts/ciana.js'></script>
+  </head>
   <body>
-    <div data-bind="foreach: panels, template: { name: 'template-' + type, data: $data }"></div>
+    <div data-bind="foreach: panels">
+      <!-- ko template: { name: 'template-' + template, data: $data } --><!-- /ko -->
+    </div>
+    <script src='/scripts/ciana.js'></script>
   </body>
 </html>
