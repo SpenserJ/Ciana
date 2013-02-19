@@ -1,18 +1,44 @@
-var socket = io.connect();
+var CianaModel = function() {
+  var self = this;
 
-var Renderers = {}
-  , Providers = {};
+  self.panels = ko.observableArray([]);
+};
 
-$.each(panels.panels, function(panel_name, panel) {
+var PanelModel = function(data) {
+  var self = this;
+
+  self.name = data.name;
+  self.template = data.template;
+  self.data = (typeof data.data === 'undefined') ? {} : data.data;
+};
+
+var Ciana = new CianaModel();
+ko.applyBindings(Ciana);
+
+
+/*$.each(panels.panels, function(panel_name, panel) {
   Renderers[panel.type] = window['PanelType_' + panel.type];
   if (typeof Providers[panel.provider] === 'undefined') {
     Providers[panel.provider] = [];
   }
   Providers[panel.provider].push(panel.name);
+});*/
+
+var socket = io.connect();
+
+socket.on('templates', function (data) {
+  console.log('Templates:\n', data);
+  $.each(data, function(name, html) {
+    if (($template = $('#template-' + name)).length === 0) {
+      $('<script type="text/html" id="template-' + name + '">' + html + '</script>').appendTo('head');
+    } else {
+      $template.html(html);
+    }
+  });
 });
 
 socket.on('provider_update', function (data) {
-  console.log('provider_update', data);
+/*  console.log('provider_update', data);
   var provider = Providers[data.name];
   if (typeof provider === 'undefined') {
     return;
@@ -21,8 +47,5 @@ socket.on('provider_update', function (data) {
   $.each(provider, function(i, panel_name) {
     var panel = panels.panels[panel_name];
     Renderers[panel.type](panel, data);
-  });
-});
-socket.on('initialize', function (data) {
-  console.log('initialize', data);
+  });*/
 });

@@ -1,0 +1,13 @@
+<!doctype 5>
+<html lang='en'>
+  <head>
+    <title>Ciana</title>
+    <link rel='stylesheet' href='/layouts/default/css/main.css' />
+    <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/knockout/2.2.1/knockout-min.js'></script>
+    <script src='/socket.io/socket.io.js'></script>
+    <script src='/scripts/ciana.js'></script>
+  <body>
+    <div data-bind="foreach: panels, template: { name: 'template-' + type, data: $data }"></div>
+  </body>
+</html>
