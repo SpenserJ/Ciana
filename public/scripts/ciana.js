@@ -31,7 +31,8 @@ socket.on('reload', function() {
 });
 
 socket.on('templates', function (data) {
-  $.each(data, function(name, html) {
+  $.each(data, function(name, value) {
+    var html = value.html;
     if (($template = $('#template-' + name)).length === 0) {
       $('<script type="text/html" id="template-' + name + '">' + html + '</script>').appendTo('head');
     } else {
