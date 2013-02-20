@@ -5,11 +5,12 @@
     <link rel='stylesheet' href='/layouts/default/css/main.css' />
     <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
     <script src='//cdnjs.cloudflare.com/ajax/libs/knockout/2.2.1/knockout-min.js'></script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.3.5/knockout.mapping.js'></script>
     <script src='/socket.io/socket.io.js'></script>
   </head>
   <body>
     <div data-bind="foreach: panels">
-      <!-- ko template: { name: 'template-' + template, data: $data } --><!-- /ko -->
+      <!-- ko template: { name: 'template-' + template, data: data().data } --><!-- /ko -->
     </div>
     <script src='/scripts/ciana.js'></script>
   </body>

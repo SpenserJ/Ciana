@@ -1,7 +1,40 @@
-var CianaModel = function() {
+var CianaModel = function CianaModel() {
   var self = this;
 
   self.panels = ko.observableArray([]);
+  self.providers = ko.observableArray([]);
+};
+
+CianaModel.prototype.createPanelIfMissing = function createPanelIfMissing(data) {
+  var self = this
+    , panels = ko.toJS(self.panels)
+    , found_index = null;
+  $.each(panels, function(index, checking) {
+    if (found_index === null && data.name === checking.name) {
+      found_index = index;
+    }
+  });
+  if (found_index === null) {
+    self.panels.push(new PanelModel(data));
+    found_index = self.panels().length - 1;
+  }
+  return found_index;
+};
+
+CianaModel.prototype.createProviderIfMissing = function createProviderIfMissing(name) {
+  var self = this
+    , providers = ko.toJS(self.providers)
+    , found_index = null;
+  $.each(providers, function(index, checking) {
+    if (found_index === null && name === checking.name) {
+      found_index = index;
+    }
+  });
+  if (found_index === null) {
+    self.providers.push(new ProviderModel({ name: name, data: { } }));
+    found_index = self.providers().length - 1;
+  }
+  return found_index;
 };
 
 var PanelModel = function(data) {
@@ -9,20 +42,21 @@ var PanelModel = function(data) {
 
   self.name = data.name;
   self.template = data.template;
-  self.data = (typeof data.data === 'undefined') ? {} : data.data;
+  self.provider = data.provider;
+  self.size = data.size;
+  self.data = ko.observable(Ciana.providers()[Ciana.createProviderIfMissing(self.provider)]);
+};
+
+var ProviderModel = function(data) {
+  var self = this;
+
+  self.name = data.name;
+  data.data = { text: 'test' };
+  self.data = ko.observable((typeof data.data === 'undefined') ? {} : data.data);
 };
 
 var Ciana = new CianaModel();
 ko.applyBindings(Ciana);
-
-
-/*$.each(panels.panels, function(panel_name, panel) {
-  Renderers[panel.type] = window['PanelType_' + panel.type];
-  if (typeof Providers[panel.provider] === 'undefined') {
-    Providers[panel.provider] = [];
-  }
-  Providers[panel.provider].push(panel.name);
-});*/
 
 var socket = io.connect();
 
@@ -31,25 +65,29 @@ socket.on('reload', function() {
 });
 
 socket.on('templates', function (data) {
-  $.each(data, function(name, value) {
+  var panels = ko.toJS(Ciana.panels);
+  $.each(data, function(template_name, value) {
     var html = value.html;
-    if (($template = $('#template-' + name)).length === 0) {
-      $('<script type="text/html" id="template-' + name + '">' + html + '</script>').appendTo('head');
+    if (($template = $('#template-' + template_name)).length === 0) {
+      $('<script type="text/html" id="template-' + template_name + '">' + html + '</script>').appendTo('head');
     } else {
       $template.html(html);
+      $.each(panels, function(index, value) {
+        if (value.template === template_name) {
+          Ciana.panels()[index].data(panels[index].data);
+        }
+      });
     }
   });
 });
 
-socket.on('provider_update', function (data) {
-/*  console.log('provider_update', data);
-  var provider = Providers[data.name];
-  if (typeof provider === 'undefined') {
-    return;
-  }
-  
-  $.each(provider, function(i, panel_name) {
-    var panel = panels.panels[panel_name];
-    Renderers[panel.type](panel, data);
-  });*/
+socket.on('panels', function (data) {
+  $.each(data, function(name, panel_data) {
+    var panel = Ciana.panels()[Ciana.createPanelIfMissing(panel_data)];
+  });
+});
+
+socket.on('provider', function (data) {
+  var provider = Ciana.providers()[Ciana.createProviderIfMissing(data.name)];
+  provider.data(data.data);
 });

@@ -3,13 +3,13 @@
     "time": {
       "title": "Time",
       "provider": "time",
-      "type": "text",
+      "template": "text",
       "size": "smbox"
     },
     "tickets_open": {
       "title": "Tickets",
       "provider": "tickets",
-      "type": "graph_bar",
+      "template": "graph_bar",
       "libraries": [
         "highcharts/js/highcharts.js"
       ],
