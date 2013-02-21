@@ -5,15 +5,6 @@
       "provider": "time",
       "template": "text",
       "size": "smbox"
-    },
-    "tickets_open": {
-      "title": "Tickets",
-      "provider": "tickets",
-      "template": "graph_bar",
-      "libraries": [
-        "highcharts/js/highcharts.js"
-      ],
-      "size": "bgbox"
     }
   }
 }
