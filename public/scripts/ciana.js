@@ -43,8 +43,13 @@ var PanelModel = function(data) {
   self.name = data.name;
   self.template = data.template;
   self.provider = data.provider;
+
+  self.title = data.title;
   self.size = data.size;
+  self.icon = '';
+
   self.data = ko.observable(Ciana.providers()[Ciana.createProviderIfMissing(self.provider)]);
+  self.showIcon = ko.computed(function() { self.icon != ''; });
 };
 
 var ProviderModel = function(data) {
