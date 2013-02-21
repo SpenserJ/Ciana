@@ -3,6 +3,7 @@ var CianaModel = function CianaModel() {
 
   self.panels = ko.observableArray([]);
   self.providers = ko.observableArray([]);
+  self.toTemplate = {};
 };
 
 CianaModel.prototype.createPanelIfMissing = function createPanelIfMissing(data) {
@@ -95,4 +96,16 @@ socket.on('panels', function (data) {
 socket.on('provider', function (data) {
   var provider = Ciana.providers()[Ciana.createProviderIfMissing(data.name)];
   provider.data(data.data);
+});
+
+socket.on('provider_to', function (data) {
+  $.each(data, function(provider, functions) {
+    var toTemplate = {};
+  console.log(functions);
+    $.each(functions, function(name, value) {
+      toTemplate[name] = eval('(' + value + ')');
+    });
+    Ciana.toTemplate[provider] = toTemplate;
+  });
+console.log(Ciana.toTemplate);
 });

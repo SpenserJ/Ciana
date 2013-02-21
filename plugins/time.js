@@ -1,11 +1,18 @@
 var Plugin_Time = require('../lib/plugin/collector');
-
+Plugin_Time.prototype.name = 'time';
 Plugin_Time.prototype.defaults = {
   frequency: 1
 }
 
 Plugin_Time.prototype.tick = function() {
-  console.log({ text: new Date() });
+  this.emit({ date: new Date(), text: '' });
 }
 
-module.exports = Plugin_Time;
+var toTemplate = {
+  toTime: function toTime() {
+    console.log(this.data());
+  }
+};
+
+module.exports.plugin = Plugin_Time;
+module.exports.toTemplate = toTemplate;
