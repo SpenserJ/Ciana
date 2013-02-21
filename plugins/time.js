@@ -9,8 +9,12 @@ Plugin_Time.prototype.tick = function() {
 }
 
 var toTemplate = {
-  toTime: function toTime() {
-    console.log(this.data());
+  toString: function toTime(data) {
+    var date = new Date(data.date);
+    return date.toLocaleDateString() + ' at ' + date.toLocaleTimeString();
+  },
+  text_date: function text_date(data) {
+    return { text: new Date(data.date).toLocaleDateString() };
   }
 };
 

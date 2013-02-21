@@ -5,6 +5,13 @@
       "provider": "time",
       "template": "text",
       "size": "smbox"
+    },
+    "date": {
+      "title": "Today's Date",
+      "provider": "time",
+      "template": "text",
+      "toTemplate": "text_date",
+      "size": "bgbox"
     }
   }
 }

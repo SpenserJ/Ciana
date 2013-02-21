@@ -1,7 +1,7 @@
-<section data-bind="attr: { class: size }">
+<section data-bind="if: showPanel, attr: { class: size }">
   <header>
     <i data-bind="attr: { class: 'icon-' + icon }, if: showIcon"></i>
     <!-- ko text: title --><!-- /ko -->
   </header>
-  <!-- ko template: { name: 'template-' + template, data: data().data } --><!-- /ko -->
+  <!-- ko template: { name: 'template-' + template, data: data() } --><!-- /ko -->
 </section>

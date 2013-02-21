@@ -44,20 +44,36 @@ var PanelModel = function(data) {
   self.name = data.name;
   self.template = data.template;
   self.provider = data.provider;
+  self.toTemplate = data.toTemplate;
 
   self.title = data.title;
   self.size = data.size;
   self.icon = '';
 
-  self.data = ko.observable(Ciana.providers()[Ciana.createProviderIfMissing(self.provider)]);
-  self.showIcon = ko.computed(function() { self.icon != ''; });
+  self.provider_object = ko.observable(Ciana.providers()[Ciana.createProviderIfMissing(self.provider)]);
+  self.data = ko.computed(function() {
+    var data = self.provider_object().data()
+      , toTemplate = (typeof self.toTemplate !== 'undefined') ? self.toTemplate : self.template;
+    if (typeof Ciana.toTemplate[self.provider] === 'undefined') {
+      return data;
+    }
+    var toTemplateFunction = Ciana.toTemplate[self.provider];
+    if (typeof toTemplateFunction[toTemplate] === 'undefined') {
+      if (typeof toTemplateFunction['toString']  !== 'undefined') {
+        return { text: toTemplateFunction['toString'](data) };
+      }
+      return data;
+    }
+    return toTemplateFunction[toTemplate](data);
+  });
+  self.showPanel = ko.computed(function() { return Object.keys(self.data()).length !== 0; });
+  self.showIcon = ko.computed(function()  { return self.icon != ''; });
 };
 
 var ProviderModel = function(data) {
   var self = this;
 
   self.name = data.name;
-  data.data = { text: 'test' };
   self.data = ko.observable((typeof data.data === 'undefined') ? {} : data.data);
 };
 
@@ -80,7 +96,7 @@ socket.on('templates', function (data) {
       $template.html(html);
       $.each(panels, function(index, value) {
         if (value.template === template_name) {
-          Ciana.panels()[index].data(panels[index].data);
+          Ciana.panels()[index].provider_object(Ciana.panels()[index].provider_object());
         }
       });
     }
@@ -101,11 +117,9 @@ socket.on('provider', function (data) {
 socket.on('provider_to', function (data) {
   $.each(data, function(provider, functions) {
     var toTemplate = {};
-  console.log(functions);
     $.each(functions, function(name, value) {
-      toTemplate[name] = eval('(' + value + ')');
+      toTemplate[name] = new Function('return (' + value + ')')();
     });
     Ciana.toTemplate[provider] = toTemplate;
   });
-console.log(Ciana.toTemplate);
 });
