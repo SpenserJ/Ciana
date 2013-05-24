@@ -59,16 +59,16 @@ var PanelModel = function(data) {
     }
     var toTemplateFunction = Ciana.toTemplate[self.provider];
     if (typeof toTemplateFunction[toTemplate] === 'undefined') {
-      if (typeof toTemplateFunction['toString']  !== 'undefined') {
-        var data = toTemplateFunction['toString'](data);
-        return (typeof data === 'object') ? data : { text: toTemplateFunction['toString'](data) };
+      if (typeof toTemplateFunction.toString  !== 'undefined') {
+        data = toTemplateFunction.toString(data);
+        return (typeof data === 'object') ? data : { text: toTemplateFunction.toString(data) };
       }
       return data;
     }
     return toTemplateFunction[toTemplate](data);
   });
   self.showPanel = ko.computed(function() { var data = self.data(); return (typeof data === 'object' && Object.keys(data).length !== 0); });
-  self.showIcon = ko.computed(function()  { return self.icon != ''; });
+  self.showIcon = ko.computed(function()  { return self.icon !== ''; });
 };
 
 var ProviderModel = function(data) {
@@ -123,6 +123,8 @@ socket.on('provider_to', function (data) {
   $.each(data, function(provider, functions) {
     var toTemplate = {};
     $.each(functions, function(name, value) {
+      /*jslint evil: true */
+      // We do this so that we can dynamically update our data converters as needed
       toTemplate[name] = new Function('return (' + value + ')')();
     });
     Ciana.toTemplate[provider] = toTemplate;
