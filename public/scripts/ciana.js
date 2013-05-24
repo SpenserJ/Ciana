@@ -22,17 +22,17 @@ CianaModel.prototype.createPanelIfMissing = function createPanelIfMissing(data) 
   return found_index;
 };
 
-CianaModel.prototype.createProviderIfMissing = function createProviderIfMissing(name) {
+CianaModel.prototype.createProviderIfMissing = function createProviderIfMissing(provider, panel) {
   var self = this
     , providers = ko.toJS(self.providers)
     , found_index = null;
   $.each(providers, function(index, checking) {
-    if (found_index === null && name === checking.name) {
+    if (found_index === null && provider === checking.provider && panel === checking.panel) {
       found_index = index;
     }
   });
   if (found_index === null) {
-    self.providers.push(new ProviderModel({ name: name, data: { } }));
+    self.providers.push(new ProviderModel({ provider: provider, panel: panel, data: { } }));
     found_index = self.providers().length - 1;
   }
   return found_index;
@@ -50,7 +50,7 @@ var PanelModel = function(data) {
   self.size = data.size;
   self.icon = '';
 
-  self.provider_object = ko.observable(Ciana.providers()[Ciana.createProviderIfMissing(self.provider)]);
+  self.provider_object = ko.observable(Ciana.providers()[Ciana.createProviderIfMissing(self.provider, self.name)]);
   self.data = ko.computed(function() {
     var data = self.provider_object().data()
       , toTemplate = (typeof self.toTemplate !== 'undefined') ? self.toTemplate : self.template;
@@ -74,7 +74,9 @@ var PanelModel = function(data) {
 var ProviderModel = function(data) {
   var self = this;
 
-  self.name = data.name;
+  console.log(data);
+  self.provider = data.provider;
+  self.panel = data.panel;
   self.data = ko.observable((typeof data.data === 'undefined') ? {} : data.data);
 };
 
@@ -111,8 +113,10 @@ socket.on('panels', function (data) {
 });
 
 socket.on('provider', function (data) {
-  var provider = Ciana.providers()[Ciana.createProviderIfMissing(data.name)];
+  var provider = Ciana.providers()[Ciana.createProviderIfMissing(data.provider, data.panel)];
   provider.data(data.data);
+  console.log('provider', provider);
+  console.log('provider', data);
 });
 
 socket.on('provider_to', function (data) {

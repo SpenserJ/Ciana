@@ -17,7 +17,21 @@
       "title": "Twitter - Google Glass",
       "provider": "rss",
       "template": "html",
-      "size": "bgbox"
+      "size": "bgbox",
+      "settings": {
+        "frequency": 10,
+        "url": "https://search.twitter.com/search.atom?q=Google+Glass"
+      }
+    },
+    "rss_hacker_news": {
+      "title": "Hacker News",
+      "provider": "rss",
+      "template": "html",
+      "size": "mebox",
+      "settings": {
+        "frequency": 10,
+        "url": "https://news.ycombinator.com/rss"
+      }
     }
   }
 }
