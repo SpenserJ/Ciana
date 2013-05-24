@@ -25,3 +25,4 @@ span.bad{color:#BB0000;}
 span.alert{color:#FFCC00;}
 section.bad{-moz-box-shadow:0 0 20px #F00;-webkit-box-shadow:0 0 20px #F00;box-shadow:0 0 20px #F00;-webkit-transition:box-shadow 0.5s ease-in;}
 section:hover{-moz-box-shadow:0 0 8px #0066CC;-webkit-box-shadow:0 0 8px #0066CC;box-shadow:0 0 8px #0066CC;-webkit-transition:box-shadow 0.25s ease-in;}
+a{color:#bbb;}

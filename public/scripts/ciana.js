@@ -60,13 +60,14 @@ var PanelModel = function(data) {
     var toTemplateFunction = Ciana.toTemplate[self.provider];
     if (typeof toTemplateFunction[toTemplate] === 'undefined') {
       if (typeof toTemplateFunction['toString']  !== 'undefined') {
-        return { text: toTemplateFunction['toString'](data) };
+        var data = toTemplateFunction['toString'](data);
+        return (typeof data === 'object') ? data : { text: toTemplateFunction['toString'](data) };
       }
       return data;
     }
     return toTemplateFunction[toTemplate](data);
   });
-  self.showPanel = ko.computed(function() { return Object.keys(self.data()).length !== 0; });
+  self.showPanel = ko.computed(function() { var data = self.data(); return (typeof data === 'object' && Object.keys(data).length !== 0); });
   self.showIcon = ko.computed(function()  { return self.icon != ''; });
 };
 

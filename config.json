@@ -1,6 +1,10 @@
 {
   "port": 3000,
   "providers": {
+    "rss": {
+      "frequency": 10,
+      "url": "https://search.twitter.com/search.atom?q=Google+Glass"
+    },
     "time": {}
   }
 }
