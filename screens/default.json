@@ -13,14 +13,14 @@
       "toTemplate": "text_date",
       "size": "smbox"
     },
-    "rss_google_glass_tweets": {
-      "title": "Twitter - Google Glass",
+    "rss_twitter_spenserj": {
+      "title": "Twitter - @SpenserJ",
       "provider": "rss",
       "template": "html",
       "size": "bgbox",
       "settings": {
-        "frequency": 10,
-        "url": "https://search.twitter.com/search.atom?q=Google+Glass"
+        "frequency": 15,
+        "url": "https://api.twitter.com/1/statuses/user_timeline.rss?screen_name=SpenserJ"
       }
     },
     "rss_hacker_news": {
@@ -29,7 +29,7 @@
       "template": "html",
       "size": "mebox",
       "settings": {
-        "frequency": 10,
+        "frequency": 15,
         "url": "https://news.ycombinator.com/rss"
       }
     }
