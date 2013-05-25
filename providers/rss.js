@@ -25,10 +25,11 @@ var toTemplate = {
     return { text: value };
   },
   html: function html(data) {
-    var value = '';
+    var value = '<ul>';
     $.each(data.articles, function(index, article) {
-      value += '<a href="' + article.link + '" target="_blank">' + article.title + '</a><br />';
+      value += '<li><a href="' + article.link + '" target="_blank">' + article.title + '</a></li>';
     });
+    value += '</ul>';
     return { html: value };
   }
 };
