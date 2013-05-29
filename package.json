@@ -15,12 +15,11 @@
     "start": "ciana"
   },
   "dependencies": {
-    "express": "3.0.x",
+    "express": "3.2.x",
     "socket.io": "0.9.x",
-    "jade": "0.28.x",
     "ejs": "0.8.x",
     "nconf": "0.6.x",
     "less-middleware": "0.1.x",
-    "chokidar": "0.5.x"
+    "chokidar": "0.6.x"
   }
 }
