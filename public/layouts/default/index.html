@@ -1,4 +1,4 @@
-<!doctype 5>
+<!DOCTYPE html>
 <html lang='en'>
   <head>
     <title>Ciana</title>
@@ -9,9 +9,10 @@
     <script src='/socket.io/socket.io.js'></script>
   </head>
   <body>
-    <div data-bind="foreach: panels">
+    <div id="panels" class="grid" data-bind="foreach: panels">
       <!-- ko template: { name: 'template-panel', data: $data } --><!-- /ko -->
     </div>
+    <div class="clearfix"></div>
     <script src='/scripts/ciana.js'></script>
   </body>
 </html>

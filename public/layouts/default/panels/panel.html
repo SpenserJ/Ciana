@@ -1,10 +1,12 @@
-<section data-bind="if: showPanel, attr: { class: 'panel ' + size }">
-  <header>
-    <i data-bind="attr: { class: 'icon-' + icon }, if: showIcon"></i>
-    <!-- ko text: title --><!-- /ko -->
-  </header>
-  <div class="content">
-    <!-- ko template: { name: 'template-' + template, data: data() } --><!-- /ko -->
+<section data-bind="if: showPanel, attr: { class: 'panel-wrapper ' + size }">
+  <div class="panel">
+    <header>
+      <i data-bind="attr: { class: 'icon-' + icon }, if: showIcon"></i>
+      <!-- ko text: title --><!-- /ko -->
+    </header>
+    <div class="content">
+      <!-- ko template: { name: 'template-' + template, data: data() } --><!-- /ko -->
+    </div>
+    <footer>This is the footer</footer>
   </div>
-  <footer>This is the footer</footer>
 </section>
