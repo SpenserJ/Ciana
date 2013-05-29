@@ -1,9 +1,14 @@
 var CianaModel = function CianaModel() {
-  var self = this;
+  var self = this, $panels = $('#panels');
 
   self.panels = ko.observableArray([]);
   self.providers = ko.observableArray([]);
   self.toTemplate = {};
+
+  self.updateIsotope = function updateIsotope(element) {
+    $panels.isotope('appended', $(element)).isotope({ sortBy: 'original-order' });
+  };
+  $panels.isotope();
 };
 
 CianaModel.prototype.createPanelIfMissing = function createPanelIfMissing(data) {

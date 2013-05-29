@@ -27,7 +27,7 @@
       "title": "Hacker News",
       "provider": "rss",
       "template": "html",
-      "size": "r3 c4",
+      "size": "r2 c2",
       "settings": {
         "frequency": 15,
         "url": "https://news.ycombinator.com/rss"
