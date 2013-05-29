@@ -3,13 +3,13 @@
   "description": "Centralized Information and Notification Appliance",
   "keywords": [ "statusboard", "notifications", "monitoring", "statistics" ],
   "author": "Spenser Jones <spenser.e.jones@gmail.com>",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "./lib/ciana.js",
   "bin": {
     "ciana": "./ciana"
   },
   "engines": {
-    "node": ">=0.8.x"
+    "node": ">=0.10.x"
   },
   "scripts": {
     "start": "ciana"
