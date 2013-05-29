@@ -6,7 +6,7 @@ var CianaModel = function CianaModel() {
   self.toTemplate = {};
 
   self.updateIsotope = function updateIsotope(element) {
-    $panels.isotope('appended', $(element)).isotope({ sortBy: 'original-order' });
+    $panels.isotope('appended', $(element)).isotope('reLayout');
   };
   $panels.isotope();
 };
