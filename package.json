@@ -1,18 +1,34 @@
 {
   "name": "ciana",
+  "version": "0.1.0",
   "description": "Centralized Information and Notification Appliance",
   "keywords": [ "statusboard", "notifications", "monitoring", "statistics" ],
   "author": "Spenser Jones <spenser.e.jones@gmail.com>",
-  "version": "0.1.0",
+  "homepage": "https://github.com/SpenserJ/Ciana",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SpenserJ/Ciana"
+  },
+  "bugs": {
+    "url": "https://github.com/SpenserJ/Ciana/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT +no-false-attribs",
+      "url": "https://github.com/SpenserJ/Ciana/raw/master/LICENSE"
+    }
+  ],
+
   "main": "./lib/ciana.js",
   "bin": {
     "ciana": "./ciana"
   },
-  "engines": {
-    "node": ">=0.10.x"
-  },
   "scripts": {
     "start": "ciana"
+  },
+
+  "engines": {
+    "node": ">=0.10.x"
   },
   "dependencies": {
     "express": "3.2.x",
