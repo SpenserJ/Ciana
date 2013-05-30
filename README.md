@@ -1,7 +1,7 @@
 Ciana
 =====
 
-![David-DM Status](https://david-dm.org/SpenserJ/Ciana.png "David-DM Status")
+[![Dependency Status](https://david-dm.org/SpenserJ/Ciana.png)](https://david-dm.org/SpenserJ/Ciana)
 
 Ciana stands for Centralized Information and Notification Appliance, but is
 more commonly known as a Status Board. Unlike most status boards however, Ciana
