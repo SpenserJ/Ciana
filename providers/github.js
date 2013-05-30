@@ -29,14 +29,15 @@ Provider_GitHub.prototype.tick = function() {
     }
   };
   if (typeof self.etag !== 'undefined') {
-    options.headers.ETag = self.etag;
+    options.headers['If-None-Match'] = self.etag;
   }
-  console.log(options);
 
   request(options, function (error, response, body) {
     if (!error) {
-      self.frequency = Math.max(self.frequency_user, response['X-Poll-Interval']);
-      self.etag = response.ETag;
+      self.setFrequency(Math.max(self.frequency_user, response.headers['x-poll-interval']));
+      if (typeof response.headers.etag !== 'undefined') {
+        self.etag = response.headers.etag;
+      }
       if (response.statusCode === 200) {
         var data = JSON.parse(body)
           , toEmit = []
