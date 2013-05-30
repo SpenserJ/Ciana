@@ -17,7 +17,7 @@
       "title": "Twitter - @SpenserJ",
       "provider": "rss",
       "template": "html",
-      "size": "r2 c2",
+      "size": "r4 c3",
       "settings": {
         "frequency": 15,
         "url": "https://api.twitter.com/1/statuses/user_timeline.rss?screen_name=SpenserJ"
@@ -27,7 +27,7 @@
       "title": "Hacker News",
       "provider": "rss",
       "template": "html",
-      "size": "r2 c2",
+      "size": "r3 c2",
       "settings": {
         "frequency": 15,
         "url": "https://news.ycombinator.com/rss"

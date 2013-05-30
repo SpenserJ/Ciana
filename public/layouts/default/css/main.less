@@ -1,8 +1,10 @@
 @import "normalize.css";
 @import "isotope";
+@import "grid-generator";
 
 body {
   background: url(../images/retina_wood.png);
+height: 100%;
 }
 
 ::-webkit-scrollbar{width:12px;height:12px;}
@@ -50,15 +52,17 @@ body {
     }
   }
 
-  .r1 { width: 128px; }
-  .r2 { width: 304px; }
-  .r3 { width: 384px; }
-  .r4 { width: 512px; }
+  .c1 { .grid-generator-column(1); }
+  .c2 { .grid-generator-column(2); }
+  .c3 { .grid-generator-column(3); }
+  .c4 { .grid-generator-column(4); }
+  .c5 { .grid-generator-column(5); }
 
-  .c1 { height: 128px; .content { height: 80px;  } }
-  .c2 { height: 304px; .content { height: 256px; } }
-  .c3 { height: 432px; .content { height: 384px; } }
-  .c4 { height: 560px; .content { height: 512px; } }
+  .r1 { .grid-generator-row(1); }
+  .r2 { .grid-generator-row(2); }
+  .r3 { .grid-generator-row(3); }
+  .r4 { .grid-generator-row(4); }
+  .r5 { .grid-generator-row(5); }
 }
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2),

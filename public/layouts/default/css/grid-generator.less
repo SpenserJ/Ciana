@@ -1,0 +1,8 @@
+.grid-generator-row (@row) {
+  height: (128px * @row) + (48px * (@row - 1));
+  .content { height: (128px * @row) + (48px * (@row - 2)); }
+}
+
+.grid-generator-column (@column) {
+  width: (128px * @column) + (48px * (@column - 1));
+}
