@@ -79,7 +79,6 @@ var PanelModel = function(data) {
 var ProviderModel = function(data) {
   var self = this;
 
-  console.log(data);
   self.provider = data.provider;
   self.panel = data.panel;
   self.data = ko.observable((typeof data.data === 'undefined') ? {} : data.data);
@@ -120,8 +119,6 @@ socket.on('panels', function (data) {
 socket.on('provider', function (data) {
   var provider = Ciana.providers()[Ciana.createProviderIfMissing(data.provider, data.panel)];
   provider.data(data.data);
-  console.log('provider', provider);
-  console.log('provider', data);
 });
 
 socket.on('provider_to', function (data) {
