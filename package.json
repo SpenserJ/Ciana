@@ -20,6 +20,7 @@
     "ejs": "0.8.x",
     "nconf": "0.6.x",
     "less-middleware": "0.1.x",
-    "chokidar": "0.6.x"
+    "chokidar": "0.6.x",
+    "request": "2.21.x"
   }
 }

@@ -32,6 +32,16 @@
         "frequency": 15,
         "url": "https://news.ycombinator.com/rss"
       }
+    },
+    "github_spenserj": {
+      "title": "GitHub - SpenserJ",
+      "provider": "github",
+      "template": "text",
+      "size": "r2 c2",
+      "settings": {
+        "api": ["users/%s/events/public", "SpenserJ"],
+        "filter": [{ "type": "PushEvent" }]
+      }
     }
   }
 }
