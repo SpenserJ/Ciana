@@ -35,7 +35,7 @@
     },
     "github_spenserj": {
       "title": "GitHub - SpenserJ",
-      "provider": "github",
+      "provider": "github/base",
       "template": "text",
       "size": "r2 c2",
       "settings": {
