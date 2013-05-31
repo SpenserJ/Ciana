@@ -1,6 +1,6 @@
 {
   "name": "ciana",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Centralized Information and Notification Appliance",
   "keywords": [ "statusboard", "notifications", "monitoring", "statistics" ],
   "author": "Spenser Jones <spenser.e.jones@gmail.com>",
