@@ -37,6 +37,7 @@
     "nconf": "0.6.x",
     "less-middleware": "0.1.x",
     "chokidar": "0.6.x",
-    "request": "2.21.x"
+    "request": "2.21.x",
+    "pseudoclass": "0.2.x"
   }
 }
