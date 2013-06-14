@@ -8,11 +8,15 @@
     <script src='//cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.3.5/knockout.mapping.js'></script>
     <script src='//cdnjs.cloudflare.com/ajax/libs/jquery.isotope/1.5.25/jquery.isotope.min.js'></script>
     <script src='/socket.io/socket.io.js'></script>
+    <script src='/libraries/Class.js'></script>
   </head>
   <body>
     <div id="panels" class="grid" data-bind="template: { foreach: panels, name: 'template-panel', data: $data, afterAdd: updateIsotope }">
     </div>
     <div class="clearfix"></div>
+    <script src='/scripts/template.js'></script>
+    <script src='/scripts/provider.js'></script>
+    <script src='/scripts/panel.js'></script>
     <script src='/scripts/ciana.js'></script>
   </body>
 </html>
