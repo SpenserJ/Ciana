@@ -21,3 +21,20 @@ Possible Uses
 * Google Analytics
 * Server Response Times
 * Server Statuses
+
+Server Flow
+----------
+
+* Initialize the socket
+  * When a client sends a message
+    * If the message type is 'initialize', check if we've loaded their screen yet.
+      * If not, foreach (screen.panels) && foreach (screen.providers)
+        * If we've loaded it already, continue
+        * If not, load it and cache the results
+      * Return the cached panels
+* When a file change is detected:
+  * If panel template, rebroadcast to all screens using this panel
+  * If provider, release and reinitialize provider
+  * If screen template, reload clients using that screen
+  * If public/scripts/, reload all clients
+  * If lib/, reload Ciana

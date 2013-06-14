@@ -110,6 +110,10 @@ socket.on('templates', function (data) {
   });
 });
 
+socket.on('connect', function() {
+  socket.emit('initialize', { screen: 'default' });
+});
+
 socket.on('panels', function (data) {
   $.each(data, function(name, panel_data) {
     var panel = Ciana.panels()[Ciana.createPanelIfMissing(panel_data)];
