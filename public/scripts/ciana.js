@@ -22,6 +22,11 @@ socket.on('reload', function() {
 socket.on('templates', function (data) {
   $.each(data, function(template_name, value) {
     Template(value);
+    $.each(panels, function(name, panel) {
+      if (panel.template === template_name) {
+        panel.checkRequirements();
+      }
+    });
   });
 });
 
@@ -46,7 +51,7 @@ socket.on('provider', function (data) {
     }));
     $.each(panels, function(name, panel) {
       if (panel.provider === data.provider && panel.name === data.panel) {
-        panel.loadProvider();
+        panel.checkRequirements();
       }
     });
   }

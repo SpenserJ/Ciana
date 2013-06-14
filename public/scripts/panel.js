@@ -22,8 +22,10 @@ var Panel = Class({
     this.icon(data.icon);
   },
 
-  loadProvider: function() {
-    this.provider_object(providers[this.provider + '_' + this.name]);
+  checkRequirements: function() {
+    if (typeof providers[this.provider + '_' + this.name] !== 'undefined') {
+      this.provider_object(providers[this.provider + '_' + this.name]);
+    }
     this.showPanel(typeof this.provider_object() !== 'undefined' &&
                    $('#template-' + this.template).length !== 0);
   },
