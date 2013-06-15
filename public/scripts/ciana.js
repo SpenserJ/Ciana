@@ -58,18 +58,34 @@ socket.on('provider', function (data) {
   providers[data.provider + '_' + data.panel].update(data.data);
 });
 
-socket.on('provider_to', function (data) {
-/*
-  $.each(data, function(provider, functions) {
-    var toTemplate = {};
-    $.each(functions, function(name, value) {
-*/
-      /*jslint evil: true */
-      // We do this so that we can dynamically update our data converters as needed
-/*
-      toTemplate[name] = new Function('return (' + value + ')')();
+var provider_mixins = {};
+
+socket.on('provider_mixins', function (data) {
+  $.each(data, function(provider_name, functions) {
+    var mixin = recursiveUnstringifyFunctions(functions);
+    provider_mixins[provider_name] = mixin;
+    $.each(providers, function(provider_panel_name, check_provider) {
+      if (provider_name === check_provider.provider) {
+        check_provider.mixin(mixin);
+      }
     });
-    Ciana.toTemplate[provider] = toTemplate;
   });
-*/
 });
+
+function recursiveUnstringifyFunctions(input) {
+  var i;
+  if (typeof input === 'string' && input.substring(0, 9) === 'function ') {
+    /*jslint evil: true */
+    input = new Function('return (' + input + ')')();
+  } else if (input instanceof Array) {
+    for (i = 0; i < input.length; i++) {
+      input[i] = recursiveUnstringifyFunctions(input[i]);
+    }
+  } else if (input instanceof Object) {
+    var keys = Object.keys(input);
+    for (i = 0; i < keys.length; i++) {
+      input[keys[i]] = recursiveUnstringifyFunctions(input[keys[i]]);
+    }
+  }
+  return input;
+}

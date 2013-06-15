@@ -20,6 +20,8 @@ var Panel = Class({
     this.title(data.title);
     this.size(data.size);
     this.icon(data.icon);
+
+    this.checkRequirements();
   },
 
   checkRequirements: function() {
@@ -35,8 +37,12 @@ var Panel = Class({
   },
 
   data: function() {
-    if (typeof this['formatAs_' + this.template] === 'function') {
-      return this['formatAs_' + this.template](this.raw_data());
+    var provider = this.provider_object();
+    if (typeof provider.data !== 'undefined') {
+      var data = this.raw_data();
+      if (typeof provider.formatAs[this.template] === 'function') {
+        return provider.formatAs[this.template](data);
+      }
     }
     return { text: 'No function to convert between ' + this.provider + ' and ' + this.template };
   }
