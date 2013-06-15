@@ -29,6 +29,8 @@ var Panel = Class({
       this.provider_object(providers[this.provider + '_' + this.name]);
     }
     this.showPanel(typeof this.provider_object() !== 'undefined' &&
+                   Object.keys(this.provider_object()).length !== 0 &&
+                   this.provider_object().requirementsMet() === true &&
                    $('#template-' + this.template).length !== 0);
   },
 

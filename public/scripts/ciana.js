@@ -67,6 +67,7 @@ socket.on('provider_mixins', function (data) {
     $.each(providers, function(provider_panel_name, check_provider) {
       if (provider_name === check_provider.provider) {
         check_provider.mixin(mixin);
+        check_provider.loadScripts();
       }
     });
   });

@@ -11,6 +11,9 @@ var Server = Collector.extend({
 });
 
 var Client = {
+  scripts: [
+    '//cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js'
+  ],
   formatAs: {
     text: function formatAs_text(data) {
       var date = new Date(data.date);
