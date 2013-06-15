@@ -18,8 +18,8 @@ var Client = {
   ],
   formatAs: {
     text: function formatAs_text(data) {
-      var date = new Date(data.date);
-      return { text: date.toLocaleDateString() + ' at ' + date.toLocaleTimeString() };
+      var format = (typeof this.settings.format === 'undefined') ? 'LLLL' : this.settings.format;
+      return { text: moment(data.date).format(format) };
     }
   }
 };
