@@ -1,5 +1,6 @@
 var Provider = Class({
   toString: 'Provider',
+  settings: {},
   scripts: [],
   formatAs: {},
 
@@ -11,6 +12,13 @@ var Provider = Class({
     if (typeof provider_mixins[this.provider] !== 'undefined') {
       this.mixin(provider_mixins[this.provider]);
       this.loadScripts();
+    }
+
+    if (typeof provider_settings[this.provider + '_' + this.panel] !== 'undefined') {
+      this.mixin({
+        settings: provider_settings[this.provider + '_' + this.panel],
+        settings_loaded: true
+      });
     }
   },
 
@@ -32,7 +40,9 @@ var Provider = Class({
   },
 
   requirementsMet: function() {
-    return (this.scripts.length === 0);
+    return (this.scripts.length === 0 &&
+            typeof this.settings_loaded !== 'undefined' &&
+            this.settings_loaded === true);
   },
 
   update: function(data) {

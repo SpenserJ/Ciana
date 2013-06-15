@@ -59,7 +59,6 @@ socket.on('provider', function (data) {
 });
 
 var provider_mixins = {};
-
 socket.on('provider_mixins', function (data) {
   $.each(data, function(provider_name, functions) {
     var mixin = recursiveUnstringifyFunctions(functions);
@@ -71,6 +70,18 @@ socket.on('provider_mixins', function (data) {
       }
     });
   });
+});
+
+var provider_settings = {};
+socket.on('provider_setting', function (data) {
+  var provider_panel_name = data.provider + '_' + data.panel;
+  provider_settings[provider_panel_name] = data.settings;
+  if (typeof providers[provider_panel_name] !== 'undefined') {
+    providers[provider_panel_name].mixin({
+      settings: data.settings,
+      settings_loaded: true
+    });
+  }
 });
 
 function recursiveUnstringifyFunctions(input) {

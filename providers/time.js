@@ -3,7 +3,9 @@ var Collector = require('../lib/provider/collector');
 var Server = Collector.extend({
   toString: 'Provider_Time',
   name: 'time',
-  frequency: 1,
+  default_settings: {
+    frequency: 1,
+  },
 
   tick: function tick() {
     this.emit({ date: new Date()  });
