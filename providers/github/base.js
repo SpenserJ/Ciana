@@ -2,28 +2,30 @@ var Collector = require('../../lib/provider/collector')
   , request = require('request')
   , util = require('util');
 
-var Provider_GitHub = Collector.extend({
+var Server = Collector.extend({
   toString: 'Provider_GitHub',
   name: 'github/base',
-  frequency: 5 * 60,
-  api: null,
+  default_settings: {
+    frequency: 5 * 60,
+    api: null,
+  },
 
   construct: function construct() {
-    this.frequency_user = this.frequency;
+    this.settings.frequency_user = this.settings.frequency;
   },
 
   tick: function tick() {
     var self = this;
-    if (self.api === null) {
+    if (self.settings.api === null) {
       return;
     }
 
-    if (self.api instanceof Array === true) {
-      self.api = util.format.apply(this, self.api);
+    if (self.settings.api instanceof Array === true) {
+      self.settings.api = util.format.apply(this, self.settings.api);
     }
 
     var options = {
-      uri: 'https://api.github.com/' + self.api,
+      uri: 'https://api.github.com/' + self.settings.api,
       headers: {
         'User-Agent': 'SpenserJ/Ciana'
       }
@@ -35,9 +37,9 @@ var Provider_GitHub = Collector.extend({
     request(options, function (error, response, body) {
       if (!error) {
         if (typeof response.headers['x-poll-interval'] === 'undefined') {
-          self.setFrequency(self.frequency_user);
+          self.setFrequency(self.settings.frequency_user);
         } else {
-          self.setFrequency(Math.max(self.frequency, response.headers['x-poll-interval']));
+          self.setFrequency(Math.max(self.settings.frequency, response.headers['x-poll-interval']));
         }
         if (typeof response.headers.etag !== 'undefined') {
           self.etag = response.headers.etag;
@@ -80,9 +82,14 @@ var Provider_GitHub = Collector.extend({
       }
     });
   },
+});
 
-  toTemplate: {
-    toString: function toString(data) {
+var Client = {
+  formatAs: {
+    text: function text(data) {
+      if (typeof data.response === 'undefined') {
+        return { text: '' };
+      }
       var text = '', i, eventCount = data.response.length, event;
       for (i = 0; i < eventCount; i++) {
         event = data.response[i];
@@ -91,6 +98,7 @@ var Provider_GitHub = Collector.extend({
       return { text: text };
     }
   }
-});
+};
 
-module.exports = Provider_GitHub;
+module.exports.Server = Server;
+module.exports.Client = Client;
