@@ -19,16 +19,6 @@
         "format": "LL"
       }
     },
-    "rss_twitter_spenserj": {
-      "title": "Twitter - @SpenserJ",
-      "provider": "rss",
-      "template": "html",
-      "size": "r4 c3",
-      "settings": {
-        "frequency": 15,
-        "url": "https://api.twitter.com/1/statuses/user_timeline.rss?screen_name=SpenserJ"
-      }
-    },
     "rss_hacker_news": {
       "title": "Hacker News",
       "provider": "rss",
