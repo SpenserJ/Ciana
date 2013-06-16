@@ -1,7 +1,7 @@
 <section data-bind="if: showPanel, attr: { class: 'panel-wrapper isotope-item ' + size(), id: name }">
   <div class="panel">
     <header>
-      <i data-bind="attr: { class: 'icon-' + icon }, if: showIcon"></i>
+      <i data-bind="attr: { class: iconClass() }"></i>
       <!-- ko text: title --><!-- /ko -->
     </header>
     <div class="content">

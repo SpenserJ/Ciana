@@ -3,17 +3,18 @@
   <head>
     <title>Ciana</title>
     <link rel='stylesheet' href='/layouts/default/css/main.css' />
+  </head>
+  <body>
+    <div id="panels" class="grid" data-bind="template: { foreach: panels, name: 'template-panel', data: $data, afterAdd: updateIsotope }">
+    </div>
+    <div class="clearfix"></div>
     <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
     <script src='//cdnjs.cloudflare.com/ajax/libs/knockout/2.2.1/knockout-min.js'></script>
     <script src='//cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.3.5/knockout.mapping.js'></script>
     <script src='//cdnjs.cloudflare.com/ajax/libs/jquery.isotope/1.5.25/jquery.isotope.min.js'></script>
     <script src='/socket.io/socket.io.js'></script>
     <script src='/libraries/Class.js'></script>
-  </head>
-  <body>
-    <div id="panels" class="grid" data-bind="template: { foreach: panels, name: 'template-panel', data: $data, afterAdd: updateIsotope }">
-    </div>
-    <div class="clearfix"></div>
+    <script src='/libraries/html-inspector.js'></script>
     <script src='/scripts/resource_manager.js'></script>
     <script src='/scripts/template.js'></script>
     <script src='/scripts/provider.js'></script>

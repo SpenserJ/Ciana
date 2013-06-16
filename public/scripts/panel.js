@@ -3,8 +3,7 @@ var Panel = Class({
 
 
   construct: function(data) {
-    this.self = this;
-
+    self = this;
 
     this.name = data.name;
     this.provider = data.provider;
@@ -13,9 +12,12 @@ var Panel = Class({
     this.title = ko.observable(data.title);
     this.size = ko.observable(data.size);
     this.icon = ko.observable(data.icon);
+    this.iconClass = ko.computed(function() {
+      var icon = self.icon();
+      return (typeof icon !== 'undefined' && icon !== '') ? 'icon-' + icon : '';
+    });
     
     this.showPanel = ko.observable(false);
-    this.showIcon = ko.observable(false);
     this.provider_object = ko.observable({});
 
     this.checkRequirements();
