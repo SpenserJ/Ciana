@@ -29,6 +29,12 @@
         "url": "https://news.ycombinator.com/rss"
       }
     },
+    "graph_test": {
+      "title": "Graph Test",
+      "provider": "random",
+      "template": "graph",
+      "size": "r2 c2"
+    },
     "github_spenserj": {
       "title": "GitHub - SpenserJ",
       "provider": "github/base",
