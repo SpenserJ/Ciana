@@ -19,27 +19,14 @@ var Client = {
 
   graph: {
     data: {
+      render: 'line',
       series: [{ data: [] }]
     },
   },
   formatAs: {
     graph: function(data) {
       this.graph.data.series[0].data.push({ x: this.graph.data.series[0].data.length, y: data.random });
-      if (typeof this.graph.rickshaw === 'undefined') {
-        // First run
-        var element = document.querySelector('#' + this.panel + ' .graph');
-        if (element === null) {
-          return;
-        }
-        element.parentNode.style.overflow = 'hidden';
-        var graph_data = {
-          element: element,
-          render: 'line',
-          series: this.graph.data.series
-        };
-        this.graph.rickshaw = new Rickshaw.Graph(graph_data);
-        panels[this.panel].redrawPanel(false);
-      } else {
+      if (typeof this.graph.rickshaw !== 'undefined') {
         this.graph.rickshaw.update();
       }
     }

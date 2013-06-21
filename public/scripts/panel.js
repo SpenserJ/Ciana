@@ -19,7 +19,6 @@ var Panel = Class({
     
     this.showPanel = ko.observable(false);
     this.provider_object = ko.observable({});
-    this.redrawPanel = ko.observable(true);
 
     this.data = ko.observable({});
     this.data()[this.template] = 'No function to convert between ' + this.provider + ' and ' + this.template;
@@ -51,7 +50,7 @@ var Panel = Class({
         toRender = provider.formatAs[this.template].call(provider, data);
       }
     }
-    if (this.redrawPanel() === true && typeof toRender !== 'undefined') {
+    if (typeof toRender !== 'undefined') {
       this.data(toRender);
     }
   }

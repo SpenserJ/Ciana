@@ -42,7 +42,9 @@ var Provider = Class({
   requirementsMet: function() {
     return (this.scripts.length === 0 &&
             typeof this.settings_loaded !== 'undefined' &&
-            this.settings_loaded === true);
+            this.settings_loaded === true &&
+            Object.keys(this.data()).length !== 0 &&
+            typeof this.formatAs[panels[this.panel].template] === 'function');
   },
 
   update: function(data) {
