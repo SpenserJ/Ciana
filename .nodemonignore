@@ -1,4 +1,6 @@
 .git
+/providers/*
+/panels/*
 /public/*
 *.js.swp
 *.js.swx
