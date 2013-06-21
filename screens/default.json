@@ -38,11 +38,10 @@
     "github_spenserj": {
       "title": "GitHub - SpenserJ",
       "provider": "github/base",
-      "template": "text",
+      "template": "graph",
       "size": "r2 c2",
       "settings": {
-        "api": ["users/%s/events/public", "SpenserJ"],
-        "filter": [{ "type": "PushEvent" }]
+        "api": ["users/%s/events/public", "SpenserJ"]
       }
     }
   }

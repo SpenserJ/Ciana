@@ -35,6 +35,7 @@ var Panel = Class({
         panel.handleData();
       });
     }
+
     this.showPanel(typeof this.provider_object() !== 'undefined' &&
                    Object.keys(this.provider_object()).length !== 0 &&
                    this.provider_object().requirementsMet() === true &&
@@ -48,6 +49,9 @@ var Panel = Class({
       var data = provider.data();
       if (typeof provider.formatAs[this.template] === 'function') {
         toRender = provider.formatAs[this.template].call(provider, data);
+        if (this.showPanel() === false) {
+          this.checkRequirements();
+        }
       }
     }
     if (typeof toRender !== 'undefined') {

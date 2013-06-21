@@ -1,6 +1,7 @@
 var Provider = Class({
   toString: 'Provider',
   settings: {},
+  settingsLoaded: false,
   scripts: [],
   formatAs: {},
 
@@ -23,9 +24,9 @@ var Provider = Class({
   },
 
   loadScripts: function() {
-    var i;
-    for (i = 0; i < this.scripts.length; i++) {
-      resources.loadScript(this.scripts[i], this.scriptLoadedCallback, this);
+    var i, scriptsArchive = this.scripts.slice();
+    for (i = 0; i < scriptsArchive.length; i++) {
+      resources.loadScript(scriptsArchive[i], this.scriptLoadedCallback, this);
     }
   },
 

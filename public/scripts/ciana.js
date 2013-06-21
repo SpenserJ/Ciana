@@ -55,7 +55,7 @@ socket.on('provider', function (data) {
       }
     });
   }
-  providers[data.provider + '_' + data.panel].update(data.data);
+  providers[data.provider + '_' + data.panel].data(data.data);
 });
 
 var provider_mixins = {};

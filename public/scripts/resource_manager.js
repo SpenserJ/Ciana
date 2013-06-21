@@ -23,10 +23,12 @@ var ResourceManager = Class({
 
   scriptLoadedCallback: function(url) {
     var i, callback;
+    this.scriptsLoaded.push(url);
     for (i = 0; i < this.scriptsLoading[url].length; i++) {
       callback = this.scriptsLoading[url][i];
       callback[0].call(callback[1], url);
     }
+    delete this.scriptsLoading[url];
   },
 });
 

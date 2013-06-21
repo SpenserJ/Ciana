@@ -45,39 +45,8 @@ var Server = Collector.extend({
           self.etag = response.headers.etag;
         }
         if (response.statusCode === 200) {
-          var data = JSON.parse(body)
-            , toEmit = []
-            , eventCount = data.length, eventIndex, event
-            , filterCount, filterIndex, filter, filterKeys
-            , keyCount, keyIndex, key
-            , pass, score;
-            for (eventIndex = 0; eventIndex < eventCount; eventIndex++) {
-              event = data[eventIndex];
-              if (self.filter instanceof Array === true) {
-                pass = false;
-                filterCount = self.filter.length;
-                for (filterIndex = 0; filterIndex < filterCount; filterIndex++) {
-                  filter = self.filter[filterIndex]; // { type: 'PushEvent' }
-                  filterKeys = Object.keys(filter);
-                  score = 0;
-                  keyCount = filterKeys.length;
-                  for (keyIndex = 0; keyIndex < keyCount; keyIndex++) {
-                    key = filterKeys[keyIndex];
-                    if (event[key] === filter[key]) {
-                      score++;
-                    }
-                  }
-                  if (score === filterKeys.length) {
-                    pass = true;
-                    break;
-                  }
-                }
-                if (pass === true) {
-                  toEmit.push(event);
-                }
-              }
-            }
-          self.emit({ error: error, response: toEmit });
+          var data = JSON.parse(body);
+          self.emit({ error: error, response: data });
         }
       }
     });
@@ -85,17 +54,72 @@ var Server = Collector.extend({
 });
 
 var Client = {
+  scripts: [
+    '//cdnjs.cloudflare.com/ajax/libs/rickshaw/1.2.1/rickshaw.min.js',
+    '//cdnjs.cloudflare.com/ajax/libs/d3/3.1.6/d3.min.js'
+  ],
+
+  graph: {
+    data: {
+      render: 'line',
+      series: [{ data: [] }]
+    },
+  },
+
   formatAs: {
     text: function text(data) {
       if (typeof data.response === 'undefined') {
         return { text: '' };
       }
-      var text = '', i, eventCount = data.response.length, event;
+      var value = '', i, eventCount = data.response.length, event;
       for (i = 0; i < eventCount; i++) {
         event = data.response[i];
-        text += event.actor.login + ' had a ' + event.type + ' at ' + event.created_at + '\n';
+        value += event.actor.login + ' had a ' + event.type + ' at ' + event.created_at + '\n';
       }
-      return { text: text };
+      return { text: value };
+    },
+
+    graph: function toString(data) {
+      var i, eventCount = data.response.length, event, eventTypes = {}, eventTypeKeys, eventDates, eventDatesCount, eventDatesIndex
+        , minDate, maxDate;
+      for (i = 0; i < eventCount; i++) {
+        event = data.response[i];
+        if (typeof eventTypes[event.type] === 'undefined') {
+          eventTypes[event.type] = {};
+        }
+        date = Math.floor(new Date(event.created_at) / 86400 / 1000);
+        if (typeof eventTypes[event.type][date] === 'undefined') {
+          eventTypes[event.type][date] = 1;
+        } else {
+          eventTypes[event.type][date]++;
+        }
+        if (typeof minDate === 'undefined' || date < minDate) {
+          minDate = date;
+        }
+        if (typeof maxDate === 'undefined' || date > maxDate) {
+          maxDate = date;
+        }
+      }
+      eventTypeKeys = Object.keys(eventTypes);
+      eventCount = eventTypeKeys.length;
+      this.graph.data.series.length = 0; // Clear the series array
+      var palette = new Rickshaw.Color.Palette();
+      for (i = 0; i < eventCount; i++) {
+        event = [];
+        eventDates = Object.keys(eventTypes[eventTypeKeys[i]]);
+        for (date = minDate; date < maxDate + 1; date++) {
+          if (typeof eventTypes[eventTypeKeys[i]][date] === 'undefined') {
+            event.push({ x: date, y: 0 });
+          } else {
+            event.push({ x: date, y: eventTypes[eventTypeKeys[i]][date] });
+          }
+        }
+        this.graph.data.series.push({ name: eventTypeKeys[i], data: event, color: palette.color() });
+      }
+
+      if (typeof this.graph.rickshaw !== 'undefined') {
+        this.graph.rickshaw.update();
+      }
     }
   }
 };
