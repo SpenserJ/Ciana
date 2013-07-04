@@ -29,7 +29,7 @@
   },
   "scripts": {
     "start": "ciana",
-    "test": "make test",
+    "test": "make travis-test",
     "blanket": {
       "pattern": "//^((?!\/node_modules\/)(?!\/test\/).)*$/",
       "data-cover-flags": { "branchTracking": true }
