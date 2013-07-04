@@ -1,5 +1,6 @@
 var Collector = require('../lib/provider/collector')
-  , parser = require('feedparser');
+  , FeedParser = require('feedparser')
+  , request = require('request');
 
 var Server = Collector.extend({
   toString: 'Provider_RSS',
@@ -9,10 +10,21 @@ var Server = Collector.extend({
   },
 
   tick: function tick() {
-    var self = this;
-    parser.parseUrl(self.settings.url, { addmeta: false }, function (error, meta, articles) {
-      self.emit({ error: error, meta: meta, articles: articles });
-    });
+    var self = this, articles = [];
+    request(self.settings.url)
+      .pipe(new FeedParser({ addmeta: false }))
+      .on('error', function(error) {
+          self.emit({ error: error, meta: null, articles: [] });
+        })
+      .on('readable', function () {
+          var stream = this;
+          while ((item = stream.read()) !== null) {
+            articles.push(item);
+          }
+        })
+      .on('end', function() {
+          self.emit({ errors: null, articles: articles });  
+        });
   },
 });
 
