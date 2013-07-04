@@ -3,6 +3,7 @@ Ciana
 
 [![Dependency Status](https://gemnasium.com/SpenserJ/Ciana.png)](https://gemnasium.com/SpenserJ/Ciana)
 [![Build Status](https://travis-ci.org/SpenserJ/Ciana.png?branch=master)](https://travis-ci.org/SpenserJ/Ciana)
+[![Coverage Status](https://coveralls.io/repos/SpenserJ/Ciana/badge.png?branch=master)](https://coveralls.io/r/SpenserJ/Ciana?branch=master)
 
 Ciana stands for Centralized Information and Notification Appliance, but is
 more commonly known as a Status Board. Unlike most status boards however, Ciana
