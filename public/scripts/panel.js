@@ -23,39 +23,48 @@ var Panel = Class({
     this.data = ko.observable({});
     this.data()[this.template] = 'No function to convert between ' + this.provider + ' and ' + this.template;
 
-    this.checkRequirements();
+    this.isReady();
     this.handleData();
   },
 
-  checkRequirements: function() {
-    if (typeof providers[this.provider + '_' + this.name] !== 'undefined') {
+  isProviderReady: function() {
+    if (typeof this.provider_object().construct === 'undefined' &&
+        typeof providers[this.provider + '_' + this.name] !== 'undefined') {
       this.provider_object(providers[this.provider + '_' + this.name]);
       var panel = this;
-      this.provider_object().data.subscribe(function(data) {
+      this.provider_object().data.subscribe(function() {
         panel.handleData();
       });
     }
+    return (
+      typeof this.provider_object().construct !== 'undefined' &&
+      this.provider_object().isReady() === true
+    );
+  },
 
-    this.showPanel(typeof this.provider_object() !== 'undefined' &&
-                   Object.keys(this.provider_object()).length !== 0 &&
-                   this.provider_object().requirementsMet() === true &&
-                   $('#template-' + this.template).length !== 0);
+  isTemplateReady: function() {
+    return $('#template-' + this.template).length !== 0;
+  },
+
+  isReady: function() {
+    return (
+      this.isProviderReady() === true &&
+      this.isTemplateReady() === true
+    );
   },
 
   handleData: function() {
-    var provider = this.provider_object(); // Call our function if this changes
-    var toRender;
-    if (typeof provider.data !== 'undefined') { // Can we get data yet?
-      var data = provider.data();
-      if (typeof provider.formatAs[this.template] === 'function') {
-        toRender = provider.formatAs[this.template].call(provider, data);
-        if (this.showPanel() === false) {
-          this.checkRequirements();
-        }
-      }
+    if (this.isProviderReady() === false) {
+      return;
     }
+    var provider = this.provider_object();
+    var toRender = provider.formatAs[this.template].call(provider, this.provider_object().data());
     if (typeof toRender !== 'undefined') {
       this.data(toRender);
+    }
+
+    if (this.showPanel() === false) {
+      this.showPanel(this.isReady());
     }
   }
 });

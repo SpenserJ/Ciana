@@ -35,21 +35,18 @@ var Provider = Class({
     if (index !== -1) {
       this.scripts.splice(this.scripts.indexOf(url), 1);
     }
-    if (this.requirementsMet() === true) {
-      panels[this.panel].checkRequirements();
+    if (this.isReady() === true) {
+      panels[this.panel].handleData();
     }
   },
 
-  requirementsMet: function() {
-    return (this.scripts.length === 0 &&
-            typeof this.settings_loaded !== 'undefined' &&
-            this.settings_loaded === true &&
-            Object.keys(this.data()).length !== 0 &&
-            typeof this.formatAs[panels[this.panel].template] === 'function');
-  },
-
-  update: function(data) {
-    this.data(data);
+  isReady: function() {
+    return (
+      this.scripts.length === 0 &&
+      this.settings_loaded === true &&
+      Object.keys(this.data()).length !== 0 &&
+      typeof this.formatAs[panels[this.panel].template] === 'function'
+    );
   }
 });
 

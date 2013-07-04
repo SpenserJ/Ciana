@@ -23,8 +23,8 @@ socket.on('templates', function (data) {
   $.each(data, function(template_name, value) {
     Template(value);
     $.each(panels, function(name, panel) {
-      if (panel.template === template_name) {
-        panel.checkRequirements();
+      if (panel.template === template_name && panel.isReady() === true) {
+        panel.handleData();
       }
     });
   });
@@ -49,13 +49,9 @@ socket.on('provider', function (data) {
     Ciana.providers($.map(providers, function(k, v) {
       return [k];
     }));
-    $.each(panels, function(name, panel) {
-      if (panel.provider === data.provider && panel.name === data.panel) {
-        panel.checkRequirements();
-      }
-    });
   }
   providers[data.provider + '_' + data.panel].data(data.data);
+  panels[data.panel].handleData();
 });
 
 var provider_mixins = {};
