@@ -24,7 +24,8 @@
     "ciana": "./ciana"
   },
   "scripts": {
-    "start": "ciana"
+    "start": "ciana",
+    "test": "make test"
   },
 
   "engines": {
