@@ -33,12 +33,15 @@
   "dependencies": {
     "express": "3.3.x",
     "socket.io": "0.9.x",
+    "socket.io-client": "0.9.x",
     "ejs": "0.8.x",
     "nconf": "0.6.x",
     "less-middleware": "0.1.x",
     "chokidar": "0.6.x",
     "request": "2.21.x",
     "pseudoclass": "0.2.x",
+    "mocha": "1.12.x",
+    "should": "1.2.x",
     "coveralls": "2.0.x"
   }
 }
