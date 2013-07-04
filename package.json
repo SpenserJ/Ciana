@@ -2,7 +2,12 @@
   "name": "ciana",
   "version": "0.2.0",
   "description": "Centralized Information and Notification Appliance",
-  "keywords": [ "statusboard", "notifications", "monitoring", "statistics" ],
+  "keywords": [
+    "statusboard",
+    "notifications",
+    "monitoring",
+    "statistics"
+  ],
   "author": "Spenser Jones <spenser.e.jones@gmail.com>",
   "homepage": "https://github.com/SpenserJ/Ciana",
   "repository": {
@@ -18,31 +23,36 @@
       "url": "https://github.com/SpenserJ/Ciana/raw/master/LICENSE"
     }
   ],
-
   "main": "./lib/ciana.js",
   "bin": {
     "ciana": "./ciana"
   },
   "scripts": {
     "start": "ciana",
-    "test": "make test"
+    "test": "make test",
+    "blanket": {
+      "pattern": "//^((?!\/node_modules\/)(?!\/test\/).)*$/",
+      "data-cover-flags": { "branchTracking": true }
+    }
   },
-
   "engines": {
     "node": ">=0.10.x"
   },
   "dependencies": {
     "express": "3.3.x",
     "socket.io": "0.9.x",
-    "socket.io-client": "0.9.x",
     "ejs": "0.8.x",
     "nconf": "0.6.x",
     "less-middleware": "0.1.x",
     "chokidar": "0.6.x",
     "request": "2.21.x",
-    "pseudoclass": "0.2.x",
+    "pseudoclass": "0.2.x"
+  },
+  "devDependencies": {
     "mocha": "1.12.x",
     "should": "1.2.x",
-    "coveralls": "2.0.x"
+    "coveralls": "2.0.x",
+    "socket.io-client": "0.9.x",
+    "blanket": "1.1.x"
   }
 }
